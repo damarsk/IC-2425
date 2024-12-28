@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendahuluan</title>
+</head>
+<body>
+    <h1 id="judul">Belajar JavaScript</h1>
+    <button id="tombol">KLIK</button>
+    <hr>
+    <h2>Nama Saya : <span id="nama"></span></h2>
+    <button id="tombol2">SPILL NAMA</button>
+    <script>
+        const h1 = document.getElementById('judul');
+        const tombol = document.getElementById('tombol');
+        const span = document.getElementById('nama');
+        const tombol2 = document.getElementById('tombol2');
+
+        tombol.addEventListener('click', () => {
+            h1.textContent = "Judul Diubah";
+        });
+
+        tombol2.addEventListener('click', () => {
+            span.textContent = "Damar";
+        });
+    </script>
+</body>
+</html>
