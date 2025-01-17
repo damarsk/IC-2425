@@ -1,0 +1,169 @@
+<!DOCTYPE html>  
+<html lang="en">  
+  <head>  
+    <meta charset="UTF-8" />  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+    <title>Game Board</title>  
+    <style>  
+      body {  
+        font-family: 'Arial', sans-serif;  
+        background-color: #f7f7f7;  
+        color: #333;  
+        text-align: center;  
+        margin: 0;  
+        padding: 0;  
+        display: flex;  
+        flex-direction: column;  
+        align-items: center;  
+        justify-content: center;  
+        height: 100vh;  
+      }  
+  
+      .menu {  
+        margin: 20px 0;  
+      }  
+  
+      button {  
+        padding: 12px 24px;  
+        font-size: 18px;  
+        margin: 5px;  
+        cursor: pointer;  
+        background-color: #007bff;  
+        color: white;  
+        border: none;  
+        border-radius: 5px;  
+        transition: background-color 0.3s;  
+      }  
+  
+      button:hover {  
+        background-color: #0056b3;  
+      }  
+  
+      .game-board {  
+        display: grid;  
+        grid-template-columns: repeat(3, 120px);  
+        gap: 15px;  
+        justify-content: center;  
+        margin: 20px auto;  
+      }  
+  
+      .cell {  
+        width: 120px;  
+        height: 120px;  
+        background-color: #fff;  
+        display: flex;  
+        justify-content: center;  
+        align-items: center;  
+        font-size: 32px;  
+        font-weight: bold;  
+        cursor: pointer;  
+        border: 2px solid #ccc;  
+        border-radius: 5px;  
+        transition: background-color 0.3s;  
+      }  
+  
+      .cell:hover {  
+        background-color: #e0e0e0;  
+      }  
+  
+      .cell.X {  
+        color: #ff5733;  
+      }  
+  
+      .cell.O {  
+        color: #33ff57;  
+      }  
+    </style>  
+  </head>  
+  
+  <body>  
+    <div class="menu">  
+      <button id="start-game">Start Game</button>  
+      <button id="reset-game">Reset Game</button>  
+    </div>  
+    <div class="game-board" id="game-board">  
+      <!-- Board elements will be dynamically generated -->  
+    </div>  
+    <script>  
+      document.addEventListener("DOMContentLoaded", () => {  
+        const board = document.getElementById("game-board");  
+        const startButton = document.getElementById("start-game");  
+        const resetButton = document.getElementById("reset-game");  
+  
+        let currentPlayer = "X";  
+        let gameActive = false;  
+        let boardState = Array(9).fill(null);  
+  
+        // Create game board cells  
+        function createBoard() {  
+          board.innerHTML = ""; // Clear the board  
+          for (let i = 0; i < 9; i++) {  
+            const cell = document.createElement("div");  
+            cell.classList.add("cell");  
+            cell.dataset.index = i;  
+            board.appendChild(cell);  
+  
+            cell.addEventListener("click", () => handleCellClick(i));  
+          }  
+        }  
+  
+        // Handle cell click  
+        function handleCellClick(index) {  
+          if (!gameActive || boardState[index]) return;  
+  
+          boardState[index] = currentPlayer;  
+          const cellElement = document.querySelectorAll(".cell")[index];  
+          cellElement.textContent = currentPlayer;  
+          cellElement.classList.add(currentPlayer);  
+  
+          if (checkWinner()) {  
+            alert(`${currentPlayer} wins!`);  
+            gameActive = false;  
+          } else if (boardState.every((cell) => cell)) {  
+            alert("It's a draw!");  
+            gameActive = false;  
+          } else {  
+            currentPlayer = currentPlayer === "X" ? "O" : "X";  
+          }  
+        }  
+  
+        // Check for a winner  
+        function checkWinner() {  
+          const winningCombinations = [  
+            [0, 1, 2],  
+            [3, 4, 5],  
+            [6, 7, 8],  
+            [0, 3, 6],  
+            [1, 4, 7],  
+            [2, 5, 8],  
+            [0, 4, 8],  
+            [2, 4, 6],  
+          ];  
+  
+          return winningCombinations.some((combination) =>  
+            combination.every((index) => boardState[index] === currentPlayer)  
+          );  
+        }  
+  
+        // Start game  
+        startButton.addEventListener("click", () => {  
+          gameActive = true;  
+          boardState.fill(null);  
+          currentPlayer = "X";  
+          createBoard();  
+        });  
+  
+        // Reset game  
+        resetButton.addEventListener("click", () => {  
+          gameActive = false;  
+          boardState.fill(null);  
+          currentPlayer = "X";  
+          createBoard();  
+        });  
+  
+        // Initialize board on load  
+        createBoard();  
+      });  
+    </script>  
+  </body>  
+</html>  

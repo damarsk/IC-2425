@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendahuluan</title>
+</head>
+<body>
+    <script>
+        var teks = "Hello World";
+
+        var nilai_pertama = 10;
+        var nilai_kedua = 20;
+
+        var hasil = nilai_pertama + nilai_kedua;
+
+        console.log("Hi apa kabar?");
+        // alert(hasil);
+        // alert(teks);
+
+        // var nama = prompt("Masukkan nama anda");
+        // alert(nama);
+
+        var nilai_ujian = prompt("Masukkan nilai ujian anda");
+        if(nilai_ujian >= 75 && nilai_ujian <= 100) {
+            // 75 - 100
+            alert("Nilai anda diatas KKM," + " Nilai anda : " + nilai_ujian);
+        }else if(nilai_ujian >= 0 && nilai_ujian < 75){
+            // 0 - 74
+            alert("Nilai anda dibawah KKM," + " Nilai anda : " + nilai_ujian);
+        }else{
+            alert("Nilai yang anda masukkan tidak valid, 0 - 100");
+        }
+
+        // Nilai anda diatas KKM, Nilai anda : 80
+        // Nilai anda dibawah KKM, Nilai anda : 60
+
+        
+    </script>
+</body>
+</html>
